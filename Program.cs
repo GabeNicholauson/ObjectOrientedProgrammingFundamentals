@@ -50,7 +50,28 @@ while (true) {
 
     if (userInput == "2")
     {
+        int coin;
+        int quantity;
 
+        Console.WriteLine("Enter the type of coin you would like to add to the machine\n");
+        userInput = Console.ReadLine();
+        while (!userInput.All(char.IsDigit) || Int32.Parse(userInput) <= 0)
+        {
+            Console.WriteLine("\nPlease enter a whole number above 0");
+            userInput = Console.ReadLine();
+        }
+        coin = Int32.Parse(userInput);
+
+        Console.WriteLine("Enter how many you would like to add to the machine\n");
+        userInput = Console.ReadLine();
+        while (!userInput.All(char.IsDigit) || Int32.Parse(userInput) <= 0)
+        {
+            Console.WriteLine("\nPlease enter a whole number above 0");
+            userInput = Console.ReadLine();
+        }
+        quantity = Int32.Parse(userInput);
+
+        Console.WriteLine(machine.StockFloat(coin, quantity));
     }
 
     if (userInput == "3")

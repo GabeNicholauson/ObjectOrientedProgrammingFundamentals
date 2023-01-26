@@ -53,7 +53,6 @@ namespace ObjectOrientedProgrammingFundamentals_Lab1
             if (MoneyFloat.ContainsKey(moneyDenomination))
             {
                 MoneyFloat[moneyDenomination] += quantity;
-                return MoneyFloat.ToString();
             } else
             {
                 MoneyFloat.Add(moneyDenomination, quantity);
@@ -69,8 +68,8 @@ namespace ObjectOrientedProgrammingFundamentals_Lab1
                 {
                     MoneyFloat.Add(keys[i], values[i]);
                 }
-                return MoneyFloat.ToString();
             }
+            return String.Join(": \n", MoneyFloat);
         }
 
         public string VendItem(string code, List<int> money)
