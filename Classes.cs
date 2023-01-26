@@ -41,9 +41,17 @@ namespace ObjectOrientedProgrammingFundamentals_Lab1
             }  
         }
 
-        public void StockFloat(int moneyDenomination, int quantity)
+        public string StockFloat(int moneyDenomination, int quantity)
         {
-
+            if (MoneyFloat.ContainsKey(moneyDenomination))
+            {
+                MoneyFloat[moneyDenomination] += quantity;
+                return $"${moneyDenomination}: {quantity}";
+            } else
+            {
+                MoneyFloat.Add(moneyDenomination, quantity);
+                return $"${moneyDenomination}: {MoneyFloat[moneyDenomination]}";
+            }
         }
 
         public void VendItem(string code, List<int> money)
