@@ -46,6 +46,7 @@ while (true) {
 
         Product product = new Product(productName, productPrice, productCode );
         Console.WriteLine(machine.StockItem(product, quantity));
+        continue;
     }
 
     if (userInput == "2")
@@ -72,10 +73,47 @@ while (true) {
         quantity = Int32.Parse(userInput);
 
         Console.WriteLine(machine.StockFloat(coin, quantity));
+        continue;
     }
 
     if (userInput == "3")
     {
+        List<int> coins = new List<int>();
+        string code;
+        bool stop = false;
+
+        if (machine.Inventory.Count == 0) 
+        {
+            Console.WriteLine("There are no items in the machine, please add some and try again\n");
+            continue;
+        }
+
+        Console.WriteLine("Please enter coins (Enter \"stop\" to move on)");
+        userInput = Console.ReadLine();
+        while (!stop)
+        {
+            if (userInput.ToLower() == "stop")
+            {
+                stop = true;
+                continue;
+            }
+            else if (!userInput.All(char.IsDigit) || userInput.Length == 0)
+            {
+                Console.WriteLine("\nPlease enter a positive number");
+                userInput = Console.ReadLine();
+                continue;
+            }
+            else
+            {
+                coins.Add(Int32.Parse(userInput));
+            }
+            userInput = Console.ReadLine();
+        }
+
+        Console.WriteLine("Please enter a code");
+        code = Console.ReadLine();
+
+        Console.WriteLine(machine.VendItem(code, coins));
 
     }
 }

@@ -40,12 +40,12 @@ namespace ObjectOrientedProgrammingFundamentals_Lab1
                 {
                     Console.WriteLine("hello");
                     Inventory[key] += quantity;
-                    return $"{key.Name}\nCode: {key.Code}\nPrice: {key.Price}\nStock: {Inventory[key]}";
+                    return $"\n{key.Name}\nCode: {key.Code}\nPrice: {key.Price}\nStock: {Inventory[key]}\n";
                 }
             }
             
             Inventory.Add(product, quantity);
-            return $"{product.Name}\nCode: {product.Code}\nPrice: {product.Price}\nStock: {quantity}";
+            return $"\n{product.Name}\nCode: {product.Code}\nPrice: {product.Price}\nStock: {quantity}\n";
         }
 
         public string StockFloat(int moneyDenomination, int quantity)
@@ -78,7 +78,8 @@ namespace ObjectOrientedProgrammingFundamentals_Lab1
             int change = 0;
             int index;           
             bool matchingCode = false;
-            Product? product = null;
+            Product product = null;
+
             for (int i = 0; i < Inventory.Count; i++)
             {
                 product = Inventory.ElementAt(i).Key;
@@ -90,18 +91,20 @@ namespace ObjectOrientedProgrammingFundamentals_Lab1
                 }
             }
             if (!matchingCode)
-                return $"Sorry, could not find a product with code \"{code}\"";
+                return $"Sorry, could not find a product with code \"{code}\"\n";
 
             if (Inventory[product] == 0)
-                return "Sorry, that item isn't currently available";
+                return "Sorry, that item isn't currently available\n";
 
             foreach (int coin in money)
                 moneyInserted += coin;
 
             if (moneyInserted < product.Price)
-                return "Sorry, you do not have sufficient funds for that item";
+                return "Sorry, you do not have sufficient funds for that item\n";
             else
                 moneyInserted -= product.Price;
+
+            if (MoneyFloat.Count == 0) return "Sorry, we don't have enough change, please try again\n";
 
             index = MoneyFloat.Count - 1;
             while (moneyInserted > 0) // If the user needs change
@@ -110,9 +113,10 @@ namespace ObjectOrientedProgrammingFundamentals_Lab1
                 {
                     if (MoneyFloat.ElementAt(index).Value <= 0) index--; // if there aren't coins of that type, move on to the next
                     else break; // there are coins of that type, so stop checking
+
                     if (index < 0) // if there are no more coins in the machine
                     {
-                        return "Sorry, we don't have enough change, please try again";
+                        return "Sorry, we don't have enough change, please try again\n";
                     }
                 }
 
@@ -131,7 +135,7 @@ namespace ObjectOrientedProgrammingFundamentals_Lab1
                 }
                 break;
             }
-            return $"Enjoy your {product} and your change of {change}";
+            return $"Enjoy your {product.Name} and your change of ${change}\n";
         }
         /**********************/
         /**** Constructors ****/
