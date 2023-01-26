@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,27 +30,37 @@ namespace ObjectOrientedProgrammingFundamentals_Lab1
         public VendingMachine() 
         {
             SerialNumber = 15434123;
-            MoneyFloat = new Dictionary<int, int>()
-            {
-                { 1, 15 },
-                { 2, 15 },
-                { 5, 15 },
-                { 10, 15 },
-                { 20, 15 },
-            };
-            Inventory = new Dictionary<string, int>()
-            {
-                { "A", 3 },
-                { "B", 2 },
-                { "C", 1 },
-                { "D", 4}
-            };
+            MoneyFloat = new Dictionary<int, int>();
+            Inventory = new Dictionary<string, int>();
         }
     }
 
     public class Product 
     {
+        /**** Properties ****/
+        public int Code
+        {
+            get;
+        }
 
+        public int Price
+        {
+            get;
+        }
+
+        public string Name
+        {
+            get;
+        }
+
+        /**** Constructors ****/
+        public Product(string name, int price, int code  )
+        {
+            Name = name;
+            Price = price;
+            Code = code;
+
+        }
     }
 
 
