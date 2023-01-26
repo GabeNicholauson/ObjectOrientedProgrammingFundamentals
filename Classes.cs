@@ -53,18 +53,26 @@ namespace ObjectOrientedProgrammingFundamentals_Lab1
             if (MoneyFloat.ContainsKey(moneyDenomination))
             {
                 MoneyFloat[moneyDenomination] += quantity;
-            } else
+            } else if (MoneyFloat.Count == 0 || moneyDenomination > MoneyFloat.ElementAt(MoneyFloat.Count - 1).Key)
             {
                 MoneyFloat.Add(moneyDenomination, quantity);
-
+            } else
+            { 
                 List<int> keys = MoneyFloat.Keys.ToList();
                 List<int> values = MoneyFloat.Values.ToList();
-                keys.Sort();
-                values.Sort();
-
                 MoneyFloat.Clear();
 
                 for (int i = 0; i < keys.Count; i ++)
+                {
+                    if (keys[i] > moneyDenomination)
+                    {
+                        keys.Insert(i, moneyDenomination);
+                        values.Insert(i, quantity);
+                        break;
+                    }
+                }
+
+                for (int i = 0; i < keys.Count; i++)
                 {
                     MoneyFloat.Add(keys[i], values[i]);
                 }
