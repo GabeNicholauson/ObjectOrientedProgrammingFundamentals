@@ -4,3 +4,5 @@
  * 
  * Refactor vending machine to be object-oriented
 */
+using ObjectOrientedProgrammingFundamentals_Lab1;
+
