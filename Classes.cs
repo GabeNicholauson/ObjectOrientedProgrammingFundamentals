@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,15 +32,20 @@ namespace ObjectOrientedProgrammingFundamentals_Lab1
         /*****************/
         public string StockItem(Product product, int quantity)
         {
-            if (Inventory.ContainsKey(product))
+
+            for (int i = 0; i < Inventory.Count; i++)
             {
-                Inventory[product] += quantity;
-                return $"{product.Name}\nCode: {product.Code}\nPrice: {product.Price}\nStock: {Inventory[product]}";
-            } else
-            {
-                Inventory.Add(product, quantity);
-                return $"{product.Name}\nCode: {product.Code}\nPrice: {product.Price}\nStock: {quantity}";
-            }  
+                Product key = Inventory.ElementAt(i).Key;
+                if (key.Name == product.Name && key.Code == product.Code && key.Price == product.Price)
+                {
+                    Console.WriteLine("hello");
+                    Inventory[key] += quantity;
+                    return $"{key.Name}\nCode: {key.Code}\nPrice: {key.Price}\nStock: {Inventory[key]}";
+                }
+            }
+            
+            Inventory.Add(product, quantity);
+            return $"{product.Name}\nCode: {product.Code}\nPrice: {product.Price}\nStock: {quantity}";
         }
 
         public string StockFloat(int moneyDenomination, int quantity)
@@ -133,7 +139,8 @@ namespace ObjectOrientedProgrammingFundamentals_Lab1
         /**********************/
         public VendingMachine()
         {
-            SerialNumber = 15434123;
+            Random random= new Random();
+            SerialNumber = random.Next();
             MoneyFloat = new Dictionary<int, int>();
             Inventory = new Dictionary<Product, int>();
         }
