@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 namespace ObjectOrientedProgrammingFundamentals_Lab1
 {
     public class VendingMachine
-    {
+    {   /********************/
         /**** Properties ****/
+        /********************/
         public int SerialNumber
         {
             get;
@@ -20,24 +21,51 @@ namespace ObjectOrientedProgrammingFundamentals_Lab1
             get; set;
         }
 
-        public Dictionary<string, int> Inventory
+        public Dictionary<Product, int> Inventory
         {
             get; set;
         }
+        /*****************/
         /**** Methods ****/
+        /*****************/
+        public string StockItem(Product product, int quantity)
+        {
+            if (Inventory.ContainsKey(product))
+            {
+                Inventory[product] += quantity;
+                return $"{product.Name}\nCode: {product.Code}\nPrice: {product.Price}\nStock: {Inventory[product]}";
+            } else
+            {
+                Inventory.Add(product, quantity);
+                return $"{product.Name}\nCode: {product.Code}\nPrice: {product.Price}\nStock: {quantity}";
+            }  
+        }
 
+        public void StockFloat(int moneyDenomination, int quantity)
+        {
+
+        }
+
+        public void VendItem(string code, List<int> money)
+        {
+
+        }
+        /**********************/
         /**** Constructors ****/
+        /**********************/
         public VendingMachine() 
         {
             SerialNumber = 15434123;
             MoneyFloat = new Dictionary<int, int>();
-            Inventory = new Dictionary<string, int>();
+            Inventory = new Dictionary<Product, int>();
         }
     }
 
     public class Product 
     {
+        /********************/
         /**** Properties ****/
+        /********************/
         public int Code
         {
             get;
@@ -53,7 +81,9 @@ namespace ObjectOrientedProgrammingFundamentals_Lab1
             get;
         }
 
+        /**********************/
         /**** Constructors ****/
+        /**********************/
         public Product(string name, int price, int code  )
         {
             Name = name;
