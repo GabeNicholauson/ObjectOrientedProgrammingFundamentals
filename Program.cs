@@ -18,7 +18,7 @@ while (true)
     Console.WriteLine("Would you like to add or remove a car from the car park?");
     string userInput = Console.ReadLine();
 
-    if (userInput.ToLower() == "add")
+    if (userInput.Trim().ToLower() == "add")
     {
         Console.WriteLine("Which license would you like to add");
         userInput = Console.ReadLine();
@@ -36,7 +36,7 @@ while (true)
                 }
             }
         }
-    } else if (userInput.ToLower() == "remove")
+    } else if (userInput.Trim().ToLower() == "remove")
     {
         Console.WriteLine("Which license would you like to remove");
         userInput = Console.ReadLine();

@@ -8,23 +8,29 @@ namespace Car_park
 {
     static class CarPark
     {
+        private static int _spotsTaken = 0;
         private static HashSet<Vehicle> _vehicles = new HashSet<Vehicle>();
         public static HashSet<ParkingSpot> ParkingSpots = new HashSet<ParkingSpot>();
 
         public static void ParkVehicle(Vehicle vehicle)
         {
+            if (_spotsTaken == Capacity)
+            {
+                throw new Exception("The car park is currently full. Please remove" +
+                " a car and try again");
+            }
+
             foreach (ParkingSpot spot in ParkingSpots) 
             {
                 if (spot.Vehicle == null) 
                 {
                     spot.Vehicle = vehicle;
                     vehicle.ParkingSpots.Add(spot);
+                    _spotsTaken++;
                     Console.WriteLine($"{vehicle.LicenseNumber} added to spot {spot.Number}");
                     return;
                 }
             }
-            throw new Exception("The car park is currently full. Please remove" +
-                " a car and try again");
         }
 
         public static void RemoveVehicle(string license)
@@ -36,6 +42,7 @@ namespace Car_park
                 {
                     spot.Vehicle.ParkingSpots.Remove(spot);
                     spot.Vehicle = null;
+                    _spotsTaken--;
                     Console.WriteLine($"Removed {license} from spot {spot.Number}.");
                     noCar = false;
                 }
@@ -47,7 +54,6 @@ namespace Car_park
         }
 
         public static int Capacity { get; }
-        private static int _spotCount = 1;
 
         // static class constructor is invoked when the program runs
 
@@ -80,13 +86,6 @@ namespace Car_park
                 }
             }
 
-        }
-
-        private string? _parkingSpot;
-        public string ParkingSpot
-        {
-            get { return _parkingSpot; }
-            set { _parkingSpot = value; }
         }
 
         public Vehicle(string licenseNumber)
