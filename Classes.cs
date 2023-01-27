@@ -9,26 +9,34 @@ namespace Car_park
     static class CarPark
     {
         private static HashSet<Vehicle> _vehicles = new HashSet<Vehicle>();
+        public static HashSet<ParkingSpot> ParkingSpots = new HashSet<ParkingSpot>();
 
-        public static void Park(Vehicle vehicle)
+        public static void ParkVehicle(Vehicle vehicle)
         {
-            if (_vehicles.Count >= Capacity)
+            foreach (ParkingSpot spot in ParkingSpots) 
             {
-                throw new Exception("No remaining capacity in carpark");
+                if (spot.Vehicle == null) 
+                {
+                    spot.Vehicle = vehicle;
+                    vehicle.ParkingSpots.Add(spot);
+                    Console.WriteLine($"{vehicle.LicenseNumber} added to spot {spot.Number}");
+                    return;
+                }
             }
-            else if (vehicle.ParkingSpot != null)
-            {
-                throw new Exception($"Vehicle parked in spot {vehicle.ParkingSpot}");
-            }
-            else
-            {
-                _vehicles.Add(vehicle);
-                vehicle.ParkingSpot = _spotCount.ToString();
-                _spotCount++;
+            throw new Exception("The car park is currently full. Please remove" +
+                "a car and try again");
+        }
 
-                Console.WriteLine($"Vehicle with liscense {vehicle.LicenseNumber}" +
-                    $"parking in spot {vehicle.ParkingSpot}");
-                Console.WriteLine($"{Capacity - _vehicles.Count} spots remaining");
+        public static void RemoveVehicle(string license)
+        {
+            foreach (ParkingSpot spot in ParkingSpots)
+            {
+                if (spot.Vehicle != null && spot.Vehicle.LicenseNumber == license)
+                {
+                    spot.Vehicle.ParkingSpots.Remove(spot);
+                    spot.Vehicle = null;
+                    Console.WriteLine($"Removed {license} from spot {spot.Number}.");
+                }
             }
         }
 
@@ -40,12 +48,17 @@ namespace Car_park
         static CarPark()
         {
             Capacity = 300;
+            for (int i = 1; i <= Capacity; i++)
+            {
+                ParkingSpots.Add(new ParkingSpot(i.ToString(), null));
+            }
         }
     }
 
     public class Vehicle
     {
         private string _licenseNumber;
+        public HashSet<ParkingSpot> ParkingSpots = new HashSet<ParkingSpot>();
         public string LicenseNumber
         {
             get { return _licenseNumber; }
@@ -73,6 +86,18 @@ namespace Car_park
         public Vehicle(string licenseNumber)
         {
             LicenseNumber = licenseNumber;
+        }
+    }
+
+    public class ParkingSpot
+    {
+        public string Number { get; set; }
+        public Vehicle? Vehicle { get; set; }
+
+        public ParkingSpot(string number, Vehicle vehicle)
+        {
+            Number = number;
+            Vehicle = vehicle;
         }
     }
 }
