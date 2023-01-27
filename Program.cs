@@ -1,17 +1,10 @@
 ﻿using Car_park;
 
-Vehicle vehicle1 = new Vehicle("1212");
-Vehicle vehicle2 = new Vehicle("fbhefb");
-Vehicle vehicle3 = new Vehicle("grgni3o");
-Vehicle vehicle4 = new Vehicle("grbub3");
-
-HashSet<Vehicle> allVehicles = new HashSet<Vehicle>()
-{
-    vehicle1,
-    vehicle2, 
-    vehicle3, 
-    vehicle4
-};
+// Creates the vehicles the user can add park
+CarPark.addVehicle(new Vehicle("1212"));
+CarPark.addVehicle(new Vehicle("fbhefb"));
+CarPark.addVehicle(new Vehicle("grgni3o"));
+CarPark.addVehicle(new Vehicle("grbub3"));
 
 while (true)
 {
@@ -23,7 +16,7 @@ while (true)
         Console.WriteLine("Which license would you like to add");
         userInput = Console.ReadLine();
 
-        foreach(Vehicle vehicle in allVehicles)
+        foreach(Vehicle vehicle in CarPark.Vehicles)
         {
             if (vehicle.LicenseNumber == userInput)
             {
