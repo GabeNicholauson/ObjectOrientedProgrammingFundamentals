@@ -15,6 +15,7 @@ allCarParks[1].addVehicle(new Vehicle("fbhefb"));
 allCarParks[1].addVehicle(new Vehicle("grgni3o"));
 allCarParks[1].addVehicle(new Vehicle("grbub3"));
 
+// Im asking for user input to make sure everything works
 // Enter an invalid input to start interaction from beginning
 
 while (true)
@@ -30,7 +31,6 @@ while (true)
         selectedCarPark = Int32.Parse(userInput) - 1;
     } else
     {
-        Console.WriteLine(userInput);
         Console.WriteLine("Sorry, that car park doesn't exist");
         continue;
     }
@@ -40,6 +40,7 @@ while (true)
 
     if (userInput.Trim().ToLower() == "add")
     {
+        bool fakeCar = true;
         Console.WriteLine("Which license would you like to add");
         userInput = Console.ReadLine();
 
@@ -50,12 +51,16 @@ while (true)
                 try
                 {
                     allCarParks[selectedCarPark].ParkVehicle(vehicle);
+                    fakeCar = false;
                 } catch (Exception ex)
                 {
+                    fakeCar = false;
                     Console.WriteLine(ex.Message);
                 }
             }
         }
+        if(fakeCar)
+            Console.WriteLine("That license doesn't exist, please try again.");
     } else if (userInput.Trim().ToLower() == "remove")
     {
         Console.WriteLine("Which license would you like to remove");
@@ -68,6 +73,9 @@ while (true)
         {
             Console.WriteLine(ex.Message);
         }
+    } else
+    {
+        Console.WriteLine("Invalid input");
     }
 }
 
