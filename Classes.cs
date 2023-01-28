@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace Car_park
 {
-    static class CarPark
+    public class CarPark
     {
         /*****************************/
         /**** Properties / Fields ****/
         /*****************************/
-        private static int _spotsTaken = 0; // tacks how many spots are taken
-        private static int _capacity { get; } // the max amount of vehicles allowed in the car park
-        public static HashSet<Vehicle> Vehicles = new HashSet<Vehicle>(); // all vehicles
-        public static HashSet<ParkingSpot> ParkingSpots = new HashSet<ParkingSpot>(); // all spots
+        private int _spotsTaken = 0; // tacks how many spots are taken
+        private int _capacity { get; } // the max amount of vehicles allowed in the car park
+        public HashSet<Vehicle> Vehicles = new HashSet<Vehicle>(); // all vehicles
+        public HashSet<ParkingSpot> ParkingSpots = new HashSet<ParkingSpot>(); // all spots
 
         /*****************************/
         /**** Methods ****************/
         /*****************************/
-        public static void ParkVehicle(Vehicle vehicle) // will park a vehicle in the closest spot
+        public void ParkVehicle(Vehicle vehicle) // will park a vehicle in the closest spot
         {
             if (_spotsTaken == _capacity) // if all the spots are taken
             {
@@ -40,7 +40,7 @@ namespace Car_park
             }
         }
 
-        public static void RemoveVehicle(string license) // removes a vehicle from all spots it occupies
+        public void RemoveVehicle(string license) // removes a vehicle from all spots it occupies
         {
             bool noCar = true; // tracks if that vehicle has taken a spot
             foreach (ParkingSpot spot in ParkingSpots) // go through each parking spot
@@ -60,7 +60,7 @@ namespace Car_park
             }
         }
 
-        public static void addVehicle(Vehicle vehicle) // adds vahicles to park
+        public void addVehicle(Vehicle vehicle) // adds vahicles to park
         {
             foreach(Vehicle v in Vehicles) // checks each vehicle
             {
@@ -75,12 +75,12 @@ namespace Car_park
         /*****************************/
         /**** Constructors ***********/
         /*****************************/
-        static CarPark()
+        public CarPark()
         {
             _capacity = 2; // max capacity
             for (int i = 1; i <= _capacity; i++) // creates parking spots
             {
-                ParkingSpots.Add(new ParkingSpot(i.ToString(), null));
+                ParkingSpots.Add(new ParkingSpot(i.ToString(), null, this));
             }
         }
     }
@@ -125,14 +125,16 @@ namespace Car_park
         /*****************************/
         public string Number { get;}
         public Vehicle? Vehicle { get; set; }
+        public CarPark ChosenCarPark { get; set; }
 
         /*****************************/
         /**** Constructors ***********/
         /*****************************/
-        public ParkingSpot(string number, Vehicle vehicle)
+        public ParkingSpot(string number, Vehicle vehicle, CarPark carPark)
         {
             Number = number;
             Vehicle = vehicle;
+            ChosenCarPark = carPark;
         }
     }
 }
