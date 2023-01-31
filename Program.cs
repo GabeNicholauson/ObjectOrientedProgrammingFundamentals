@@ -14,20 +14,21 @@ Student Jimmy = new Student(1000, "Jimmy", "Smith");
 try
 {
     registerStudent(Jimmy, Software);
-    Console.WriteLine(Jimmy.enrolement.Course.Title);
-    Console.WriteLine(Jimmy.enrolement.Id);
-    Console.WriteLine(Jimmy.enrolement.RegisteredStudent.FirstName);
-    Console.WriteLine(Jimmy.enrolement.RegisteredStudent.LastName);
-    Console.WriteLine(Jimmy.enrolement.CourseGrade);
-    Console.WriteLine(Jimmy.enrolement.DateRegistered);
+    Console.WriteLine(Jimmy.Enrolment.Course.Title);
+    Console.WriteLine(Jimmy.Enrolment.Id);
+    Console.WriteLine(Jimmy.Enrolment.RegisteredStudent.FirstName);
+    Console.WriteLine(Jimmy.Enrolment.RegisteredStudent.LastName);
+    Console.WriteLine(Jimmy.Enrolment.CourseGrade);
+    Console.WriteLine(Jimmy.Enrolment.DateRegistered);
     Console.WriteLine(allEnrolements.Count);
     Console.WriteLine(Software.GetStudentInCourse(Jimmy.StudentId).RegisteredStudent.FirstName);
 
     deregisterStudent(Jimmy, Software);
     Console.WriteLine(Software.GetStudentInCourse(Jimmy.StudentId));
-    Console.WriteLine(Jimmy.enrolement);
+    Console.WriteLine(Jimmy.Enrolment);
     Console.WriteLine(allEnrolements.Count);
     Console.WriteLine(Jimmy.DateRegistered);
+    deregisterStudent(Jimmy, Software);
 
 }
 catch (Exception ex)
@@ -47,7 +48,7 @@ void registerStudent(Student student, Course course)
         course.AddStudentToCourse(enrolement);
 
         // set the course as the student's currently registered course
-        student.enrolement = enrolement;
+        student.Enrolment = enrolement;
         student.DateRegistered = enrolement.DateRegistered;
     }
     else
@@ -59,7 +60,7 @@ void registerStudent(Student student, Course course)
 
 void deregisterStudent(Student student, Course course)
 {
-    if (student.enrolement.Course.CourseId == course.CourseId
+    if (student.Enrolment != null && student.Enrolment.Course.CourseId == course.CourseId
         && course.GetStudentInCourse(student.StudentId).RegisteredStudent.FirstName == student.FirstName)
     {
         foreach(Enrolment e in allEnrolements)
@@ -70,7 +71,7 @@ void deregisterStudent(Student student, Course course)
                 break;
             }
         }
-        student.enrolement = null;
+        student.Enrolment = null;
         student.RemoveGrade();
         student.DateRegistered = null;
     }
