@@ -18,10 +18,10 @@ namespace ObjectOrientedProgrammingFundamentals
         public Course Course { get; set; }
 
         private Student _student;
-        public Student RegisteredStudent
+        public Student RegisteredStudent { get { return _student; } }
+        private void _registerStudent(Student student) // this is private because the student should never change
         {
-            get { return _student; }
-            set { _student = value; }
+            _student = student;
         }
 
         private int? _courseGrade;
@@ -52,7 +52,7 @@ namespace ObjectOrientedProgrammingFundamentals
         public Enrolment(int id, Student student, Course course, int? courseGrade, DateTime date)
         {
             Id = id;
-            RegisteredStudent = student;
+            _registerStudent(student);
             Course = course;
             SetCourseGrade(courseGrade);
             DateRegistered = date;
