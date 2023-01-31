@@ -9,10 +9,10 @@ namespace ObjectOrientedProgrammingFundamentals
     public class Enrolment
     {
         private int _id;
-        public int Id 
-        { 
-            get { return _id; } 
-            set { _id = value; }
+        public int Id { get { return _id; } }
+        private void _setId(int id) // this is private because the ID should never change
+        {
+            _id = id;
         }
 
         public Course Course { get; set; }
@@ -51,7 +51,7 @@ namespace ObjectOrientedProgrammingFundamentals
 
         public Enrolment(int id, Student student, Course course, int? courseGrade, DateTime date)
         {
-            Id = id;
+            _setId(id);
             _registerStudent(student);
             Course = course;
             SetCourseGrade(courseGrade);
