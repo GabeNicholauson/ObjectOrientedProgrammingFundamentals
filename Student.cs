@@ -57,23 +57,23 @@ namespace ObjectOrientedProgrammingFundamentals
         }
 
         // Many students can each take one course
-        public Course? Course { get; set; }
+        public Enrolment? Course { get; set; }
 
         private int? _courseGrade;
         public int? CourseGrade { get { return _courseGrade; } }
-        public void SetCourseGrade(int grade)
+        public void SetCourseGrade(Enrolment e)
         {
             if (Course == null)
             {
                 throw new Exception("Student not enroled in course");
             }
-            else if (grade < 0 || grade > 100)
+            else if (e.CourseGrade < 0 || e.CourseGrade > 100)
             {
                 throw new Exception("Grade must be between 0 and 100");
             }
             else
             {
-                _courseGrade = grade;
+                _courseGrade = e.CourseGrade;
             }
         }
         public void RemoveGrade()
@@ -85,7 +85,7 @@ namespace ObjectOrientedProgrammingFundamentals
         public DateTime? DateRegistered
         {
             get { return _dateRegistered; }
-            set { _dateRegistered = value; }
+            set { _dateRegistered = Course.DateRegistered; }
         }
 
         public Student(int studentId)

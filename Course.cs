@@ -52,7 +52,7 @@ namespace ObjectOrientedProgrammingFundamentals
         }
 
         // One course contains many students
-        private HashSet<Student> _students = new HashSet<Student>();
+        private HashSet<Enrolment> _students = new HashSet<Enrolment>();
         // get method exposes entire collection -- make specific methods instead
         public Student? GetStudentInCourse(int studentId)
         {
@@ -65,7 +65,7 @@ namespace ObjectOrientedProgrammingFundamentals
             }
             return null;
         }
-        public void AddStudentToCourse(Student student)
+        public void AddStudentToCourse(Enrolment student)
         {
             if (_students.Count < Capacity)
             {
@@ -77,7 +77,7 @@ namespace ObjectOrientedProgrammingFundamentals
             }
         }
 
-        public void RemoveStudentFromCourse(Student student)
+        public void RemoveStudentFromCourse(Enrolment student)
         {
             _students.Remove(student);
         }
