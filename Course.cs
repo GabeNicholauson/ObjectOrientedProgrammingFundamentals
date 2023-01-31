@@ -58,7 +58,7 @@ namespace ObjectOrientedProgrammingFundamentals
         {
             foreach (Enrolment s in _students)
             {
-                if (s.Id == studentId)
+                if (s.RegisteredStudent.StudentId == studentId)
                 {
                     return s;
                 }

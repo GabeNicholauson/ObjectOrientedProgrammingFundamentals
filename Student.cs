@@ -67,10 +67,6 @@ namespace ObjectOrientedProgrammingFundamentals
             {
                 throw new Exception("Student not enroled in course");
             }
-            else if (e.CourseGrade < 0 || e.CourseGrade > 100)
-            {
-                throw new Exception("Grade must be between 0 and 100");
-            }
             else
             {
                 _courseGrade = e.CourseGrade;
@@ -85,7 +81,15 @@ namespace ObjectOrientedProgrammingFundamentals
         public DateTime? DateRegistered
         {
             get { return _dateRegistered; }
-            set { _dateRegistered = value; }
+            set {
+                  if(value == null)
+                  {
+                    _dateRegistered = null;
+                  } else
+                  {
+                    _dateRegistered = Enrolment.DateRegistered;
+                  }
+                }
         }
 
         public Student(int studentId)

@@ -16,6 +16,7 @@ try
     registerStudent(Jimmy, Software);
     Console.WriteLine(Jimmy.Enrolment.Course.Title);
     Console.WriteLine(Jimmy.Enrolment.Id);
+    Console.WriteLine(Jimmy.Enrolment.RegisteredStudent.StudentId);
     Console.WriteLine(Jimmy.Enrolment.RegisteredStudent.FirstName);
     Console.WriteLine(Jimmy.Enrolment.RegisteredStudent.LastName);
     Console.WriteLine(Jimmy.Enrolment.CourseGrade);
@@ -43,7 +44,7 @@ void registerStudent(Student student, Course course)
     {
         // if not, add that student to the course's student list
         // set the course as the student's currently registered course
-        Enrolment enrolement = new Enrolment(student.StudentId, student, course, student.CourseGrade, DateTime.Now);
+        Enrolment enrolement = new Enrolment(2132, student, course, 0, DateTime.Now);
         allEnrolements.Add(enrolement);
         course.AddStudentToCourse(enrolement);
 
