@@ -57,39 +57,41 @@ namespace ObjectOrientedProgrammingFundamentals
         }
 
         // Many students can each take one course
-        public Enrolment? Enrolment { get; set; }
+        public Enrolment? Enrolment { get; set; } // the enrolment information of the student
 
         private int? _courseGrade;
         public int? CourseGrade { get { return _courseGrade; } }
-        public void SetCourseGrade(Enrolment e)
+        public void SetCourseGrade(Enrolment e) // retrieves enrolment grade
         {
-            if (Enrolment == null)
+            if (Enrolment == null) // if the student isn't enrolled
             {
                 throw new Exception("Student not enroled in course");
             }
-            else
+            else // update grade
             {
                 _courseGrade = e.CourseGrade;
             }
         }
-        public void RemoveGrade()
+        public void RemoveGrade() // removes grade
         {
             _courseGrade = null;
         }
 
         private DateTime? _dateRegistered;
-        public DateTime? DateRegistered
+        public DateTime? DateRegistered { get { return _dateRegistered; } }
+        public void SetDateRegistered() // pulls date registered from enrolment
         {
-            get { return _dateRegistered; }
-            set {
-                  if(value == null)
-                  {
-                    _dateRegistered = null;
-                  } else
-                  {
-                    _dateRegistered = Enrolment.DateRegistered;
-                  }
-                }
+            if(Enrolment != null)
+            {
+                _dateRegistered = Enrolment.DateRegistered;
+            } else
+            {
+                throw new Exception("Student isn't enrolled in a course");
+            }
+        }
+        public void ClearDateRegistered() // clears date registered
+        {
+            _dateRegistered = null;
         }
 
         public Student(int studentId)
