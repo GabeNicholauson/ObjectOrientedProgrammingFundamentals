@@ -82,5 +82,15 @@ namespace ObjectOrientedProgrammingFundamentals
             get { return _dateRegistered; }
             set { _dateRegistered = value; }
         }
+
+        public Enrolment(int id, string firstName, string lastName, Course course, int courseGrade, DateTime date)
+        {
+            SetId(id);
+            FirstName = firstName;
+            LastName = lastName;
+            Course = course;
+            SetCourseGrade(courseGrade);
+            DateRegistered = date;
+        }
     }
 }

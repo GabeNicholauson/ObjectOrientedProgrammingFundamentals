@@ -1,6 +1,7 @@
 ﻿using System;
 using ObjectOrientedProgrammingFundamentals;
 
+HashSet<Enrolment> allEnrolements = new HashSet<Enrolment>();
 Course Software = new Course(200, "Software Developer", 30);
 Student Jimmy = new Student(1000, "Jimmy", "Smith");
 // a course can have many students in it, and a 
@@ -12,14 +13,7 @@ Student Jimmy = new Student(1000, "Jimmy", "Smith");
 // "many" component needs a propertyfor the "one" (student needs a property of course)
 try
 {
-    registerStudent(Jimmy, Software);
-    Console.WriteLine(Jimmy.Course.Title);
-    Console.WriteLine(Jimmy.DateRegistered);
-    deregisterStudent(Jimmy, Software);
-    Console.WriteLine(Jimmy.DateRegistered);
-    Console.WriteLine(Software.GetStudentInCourse(Jimmy.StudentId));
-    Console.WriteLine(Jimmy.Course);
-    deregisterStudent(Jimmy, Software);
+   
 }
 catch (Exception ex)
 {
