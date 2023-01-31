@@ -57,13 +57,13 @@ namespace ObjectOrientedProgrammingFundamentals
         }
 
         // Many students can each take one course
-        public Enrolment? Course { get; set; }
+        public Enrolment? enrolement { get; set; }
 
         private int? _courseGrade;
         public int? CourseGrade { get { return _courseGrade; } }
         public void SetCourseGrade(Enrolment e)
         {
-            if (Course == null)
+            if (enrolement == null)
             {
                 throw new Exception("Student not enroled in course");
             }
@@ -85,7 +85,7 @@ namespace ObjectOrientedProgrammingFundamentals
         public DateTime? DateRegistered
         {
             get { return _dateRegistered; }
-            set { _dateRegistered = Course.DateRegistered; }
+            set { _dateRegistered = value; }
         }
 
         public Student(int studentId)

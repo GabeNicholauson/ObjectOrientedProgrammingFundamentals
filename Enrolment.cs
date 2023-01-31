@@ -17,38 +17,11 @@ namespace ObjectOrientedProgrammingFundamentals
 
         public Course Course { get; set; }
 
-        private string _firstName;
-        public string FirstName
+        private Student _student;
+        public Student RegisteredStudent
         {
-            get { return _firstName; }
-            set
-            {
-                if (value.Length > 0)
-                {
-                    _firstName = value;
-                }
-                else
-                {
-                    throw new Exception("Cannot be empty.");
-                }
-            }
-        }
-
-        private string _lastName;
-        public string LastName
-        {
-            get { return _lastName; }
-            set
-            {
-                if (value.Length > 0)
-                {
-                    _lastName = value;
-                }
-                else
-                {
-                    throw new Exception("Cannot be empty.");
-                }
-            }
+            get { return _student; }
+            set { _student = value; }
         }
 
         private int? _courseGrade;
@@ -76,11 +49,10 @@ namespace ObjectOrientedProgrammingFundamentals
             set { _dateRegistered = value; }
         }
 
-        public Enrolment(int id, string firstName, string lastName, Course course, int? courseGrade, DateTime date)
+        public Enrolment(int id, Student student, Course course, int? courseGrade, DateTime date)
         {
             Id = id;
-            FirstName = firstName;
-            LastName = lastName;
+            RegisteredStudent = student;
             Course = course;
             SetCourseGrade(courseGrade);
             DateRegistered = date;

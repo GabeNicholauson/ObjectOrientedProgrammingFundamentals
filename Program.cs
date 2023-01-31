@@ -14,14 +14,21 @@ Student Jimmy = new Student(1000, "Jimmy", "Smith");
 try
 {
     registerStudent(Jimmy, Software);
-    Console.WriteLine(Jimmy.Course.Course.Title);
-    Console.WriteLine(Jimmy.Course.Id);
-    Console.WriteLine(Jimmy.Course.FirstName);
-    Console.WriteLine(Jimmy.Course.LastName);
-    Console.WriteLine(Jimmy.Course.CourseGrade);
-    Console.WriteLine(Jimmy.Course.DateRegistered);
+    Console.WriteLine(Jimmy.enrolement.Course.Title);
+    Console.WriteLine(Jimmy.enrolement.Id);
+    Console.WriteLine(Jimmy.enrolement.RegisteredStudent.FirstName);
+    Console.WriteLine(Jimmy.enrolement.RegisteredStudent.LastName);
+    Console.WriteLine(Jimmy.enrolement.CourseGrade);
+    Console.WriteLine(Jimmy.enrolement.DateRegistered);
     Console.WriteLine(allEnrolements.Count);
-    Console.WriteLine(Software.GetStudentInCourse(Jimmy.StudentId).FirstName);
+    Console.WriteLine(Software.GetStudentInCourse(Jimmy.StudentId).RegisteredStudent.FirstName);
+
+    deregisterStudent(Jimmy, Software);
+    Console.WriteLine(Software.GetStudentInCourse(Jimmy.StudentId));
+    Console.WriteLine(Jimmy.enrolement);
+    Console.WriteLine(allEnrolements.Count);
+    Console.WriteLine(Jimmy.DateRegistered);
+
 }
 catch (Exception ex)
 {
@@ -35,17 +42,41 @@ void registerStudent(Student student, Course course)
     {
         // if not, add that student to the course's student list
         // set the course as the student's currently registered course
-        Enrolment enrolement = new Enrolment(student.StudentId, student.FirstName, student.LastName, course, student.CourseGrade, DateTime.Now);
+        Enrolment enrolement = new Enrolment(student.StudentId, student, course, student.CourseGrade, DateTime.Now);
         allEnrolements.Add(enrolement);
         course.AddStudentToCourse(enrolement);
 
         // set the course as the student's currently registered course
-        student.Course = enrolement;
+        student.enrolement = enrolement;
         student.DateRegistered = enrolement.DateRegistered;
     }
     else
     {
         throw new Exception($"Student with id {student.StudentId} already " +
+            $"registered in Course {course.CourseId}");
+    }
+}
+
+void deregisterStudent(Student student, Course course)
+{
+    if (student.enrolement.Course.CourseId == course.CourseId
+        && course.GetStudentInCourse(student.StudentId).RegisteredStudent.FirstName == student.FirstName)
+    {
+        foreach(Enrolment e in allEnrolements)
+        {
+            if (e.DateRegistered == student.DateRegistered)
+            {
+                course.RemoveStudentFromCourse(e);
+                break;
+            }
+        }
+        student.enrolement = null;
+        student.RemoveGrade();
+        student.DateRegistered = null;
+    }
+    else
+    {
+        throw new Exception($"Student with id {student.StudentId} isn't " +
             $"registered in Course {course.CourseId}");
     }
 }
