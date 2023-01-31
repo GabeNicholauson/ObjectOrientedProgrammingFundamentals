@@ -9,18 +9,11 @@ namespace ObjectOrientedProgrammingFundamentals
     public class Enrolment
     {
         private int _id;
-        public int Id { get { return _id; } }
-        public void SetId(int id)
-        {
-            if (Id > 0)
-            {
-                _id = id;
-            }
-            else
-            {
-                throw new Exception("Student ID must be greater than zero");
-            }
-        }
+        public int Id 
+        { 
+            get { return _id; } 
+            set { _id = value; }
+                }
 
         public Course Course { get; set; }
 
@@ -58,9 +51,9 @@ namespace ObjectOrientedProgrammingFundamentals
             }
         }
 
-        private int _courseGrade;
-        public int CourseGrade { get { return _courseGrade; } }
-        public void SetCourseGrade(int grade)
+        private int? _courseGrade;
+        public int? CourseGrade { get { return _courseGrade; } }
+        public void SetCourseGrade(int? grade)
         {
             if (Course == null)
             {
@@ -83,9 +76,9 @@ namespace ObjectOrientedProgrammingFundamentals
             set { _dateRegistered = value; }
         }
 
-        public Enrolment(int id, string firstName, string lastName, Course course, int courseGrade, DateTime date)
+        public Enrolment(int id, string firstName, string lastName, Course course, int? courseGrade, DateTime date)
         {
-            SetId(id);
+            Id = id;
             FirstName = firstName;
             LastName = lastName;
             Course = course;

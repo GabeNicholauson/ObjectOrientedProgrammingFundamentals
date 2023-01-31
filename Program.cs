@@ -13,7 +13,15 @@ Student Jimmy = new Student(1000, "Jimmy", "Smith");
 // "many" component needs a propertyfor the "one" (student needs a property of course)
 try
 {
-   
+    registerStudent(Jimmy, Software);
+    Console.WriteLine(Jimmy.Course.Course.Title);
+    Console.WriteLine(Jimmy.Course.Id);
+    Console.WriteLine(Jimmy.Course.FirstName);
+    Console.WriteLine(Jimmy.Course.LastName);
+    Console.WriteLine(Jimmy.Course.CourseGrade);
+    Console.WriteLine(Jimmy.Course.DateRegistered);
+    Console.WriteLine(allEnrolements.Count);
+    Console.WriteLine(Software.GetStudentInCourse(Jimmy.StudentId).FirstName);
 }
 catch (Exception ex)
 {
@@ -27,31 +35,17 @@ void registerStudent(Student student, Course course)
     {
         // if not, add that student to the course's student list
         // set the course as the student's currently registered course
-        course.AddStudentToCourse(student);
+        Enrolment enrolement = new Enrolment(student.StudentId, student.FirstName, student.LastName, course, student.CourseGrade, DateTime.Now);
+        allEnrolements.Add(enrolement);
+        course.AddStudentToCourse(enrolement);
 
         // set the course as the student's currently registered course
-        student.Course = course;
-        student.DateRegistered = DateTime.Now;
+        student.Course = enrolement;
+        student.DateRegistered = enrolement.DateRegistered;
     }
     else
     {
         throw new Exception($"Student with id {student.StudentId} already " +
-            $"registered in Course {course.CourseId}");
-    }
-}
-void deregisterStudent(Student student, Course course)
-{
-    if (student.Course.CourseId == course.CourseId
-        && course.GetStudentInCourse(student.StudentId) == student)
-    {
-        course.RemoveStudentFromCourse(student);
-        student.Course = null;
-        student.RemoveGrade();
-        student.DateRegistered = null;
-    }
-    else
-    {
-        throw new Exception($"Student with id {student.StudentId} isn't " +
             $"registered in Course {course.CourseId}");
     }
 }

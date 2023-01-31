@@ -54,11 +54,11 @@ namespace ObjectOrientedProgrammingFundamentals
         // One course contains many students
         private HashSet<Enrolment> _students = new HashSet<Enrolment>();
         // get method exposes entire collection -- make specific methods instead
-        public Student? GetStudentInCourse(int studentId)
+        public Enrolment? GetStudentInCourse(int studentId)
         {
-            foreach (Student s in _students)
+            foreach (Enrolment s in _students)
             {
-                if (s.StudentId == studentId)
+                if (s.Id == studentId)
                 {
                     return s;
                 }
